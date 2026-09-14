@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "nixfred.trackpad-pulse",
   "name": "Trackpad Pulse",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "author": "Fred Nix",
   "license": "MIT",
   "description": "Your trackpad as a live instrument: fingers, taps, gestures, speed and seven days of history, on top of Trackpad Plus's per-device controls and pointer-feel curve.",

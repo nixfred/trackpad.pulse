@@ -1493,6 +1493,15 @@ class Recorder:
             except BlockingIOError:
                 return
             atomic(STATE, 'history.json', {str(s): history(self.db, s) for s in (3600, 86400, 604800)})
+            # Seed an idle live.json before the loop. It lives on tmpfs and was
+            # otherwise written only once a finger or the cursor moved, so on a
+            # fresh boot it did not exist yet; the panel's FileView bound its
+            # watch to a missing path, which never attaches when the file later
+            # appears, and the bar chip stayed dead until a shell restart. Now
+            # the file exists as soon as the recorder does, before the first
+            # snapshot makes the panel warm, so the panel's warm-up reload finds
+            # it and binds the watch.
+            self.write_live(time.time())
             while True:
                 try:
                     self.tick()

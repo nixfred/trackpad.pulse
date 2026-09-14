@@ -678,7 +678,7 @@ Panel {
   }
   Timer {
     interval: 3000; running: true; repeat: true
-    onTriggered: { root.now = Date.now() / 1000; if (root.stale) { snapshotFile.reload(); historyFile.reload() } }
+    onTriggered: { root.now = Date.now() / 1000; if (root.stale) { snapshotFile.reload(); historyFile.reload(); liveFile.reload() } }
   }
   Timer { id: reoptimize; interval: 200; onTriggered: root.requestOptimize() }
   // `omarchy plugin add` runs no installer, so a fresh machine had no

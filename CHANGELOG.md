@@ -2,6 +2,10 @@
 
 Versions follow semver and live in `manifest.json`, which the panel header, the About page and `status` all read. Every release is tagged `vX.Y.Z`.
 
+## 1.7.1 — 2026-09-14
+
+- **The live chip survives a reboot.** `live.json` lives on tmpfs and was written only once a finger or the cursor moved, so after a reboot it did not exist when the shell first loaded the panel. The panel's `FileView` bound its watch to a missing path — a watch that never attaches when the file later appears — so the bar chip drew but never lit or counted until the shell was restarted, even though the recorder was running and every other file updated. The recorder now seeds an idle `live.json` at startup, before its first snapshot, and the panel's warm-up reload also reloads the live file, so the watch binds deterministically whichever process wins the boot race. No settings or data change.
+
 ## 1.7.0 — 2026-09-14
 
 - **Every pad gets its own starting feel.** The Mac-inspired preset put the same gains on every pad. The recorder now measures each pad's width (the kernel's resolution, else udev's recorded size, else the size libinput itself assumes) and the widest screen, and the preset's gains scale with screen pixels per pad millimetre. The anchor is a 124 mm pad on a 1920-pixel screen, where the gains are exactly what Trackpad Plus ships; that anchor is a choice, not a measurement. A 160 mm pad on the same screen starts at 0.78×, a small pad on a wide desktop at up to 2×, clamped to 0.5–2. Fast swipes still stops at Device scale. Start and End are finger speeds and do not move. Optimize's first fit starts from the same sized gains.
