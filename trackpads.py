@@ -155,8 +155,10 @@ def validate_setting(key, value):
 
 
 # Touchpads whose names say neither touchpad nor trackpad: Apple silicon under
-# Asahi, Intel MacBooks (the kernel's bcm5974 driver), and a Lenovo Synaptics.
-UNNAMED_TOUCHPADS = ('apple-mtp-multi-touch', 'bcm5974', 'synaptics-tm3512-010')
+# Asahi, Intel MacBooks (the kernel's bcm5974 driver), and Lenovo Synaptics pads
+# that name themselves by model number (ThinkPad RMI4/I2C).
+UNNAMED_TOUCHPADS = ('apple-mtp-multi-touch', 'bcm5974', 'synaptics-tm3512-010',
+                     'synaptics-tm3471-001')
 # A MacBook's own pad, on Asahi, Intel and T2 Macs. A Magic Trackpad is other
 # hardware, a different size, and keeps its own settings.
 APPLE_BUILTIN = ('apple-mtp-multi-touch', 'bcm5974', 'apple-inc.-apple-internal-keyboard-/-trackpad')
