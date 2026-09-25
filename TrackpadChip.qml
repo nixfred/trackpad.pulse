@@ -36,13 +36,18 @@ Item {
     // Every paint is coalesced onto one timer. Painting straight from each
     // fingers change meant a 20 Hz live file drove every chip on the panel at
     // 20 paints a second on the GUI thread, which is what froze the bar.
+    // The tick also ages trails and ripples, so it keeps running while there
+    // is something to fade even with the icon animation off; otherwise the
+    // last frame of a swipe stayed painted on the chip until the next touch.
+    // Off still means an idle chip never repaints: the aura and sweep only
+    // move when animate is on.
     Timer {
         id: tick
         interval: root.busy ? 50 : 125
         repeat: true
-        running: root.animate && root.visible
+        running: root.visible && (root.animate || root.busy)
         onTriggered: {
-            root.phase = (root.phase + root.phaseStep) % 1
+            if (root.animate) root.phase = (root.phase + root.phaseStep) % 1
             root.age(Date.now())
             canvas.requestPaint()
         }

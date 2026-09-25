@@ -2,6 +2,10 @@
 
 Versions follow semver and live in `manifest.json`, which the panel header, the About page and `status` all read. Every release is tagged `vX.Y.Z`.
 
+## 1.9.2 — 2026-09-25
+
+- **Icon animation off no longer freezes the last touch on the chip.** The chip's tick is what ages trails and ripples, and it only ran with the animation on, so with it off the final frame of a swipe stayed painted until the next touch (a trail still there at 10 s, where it fades by 0.7 s with the animation on). The tick now also runs while a finger is down or something is still fading, and stops once it has faded. Off still means an idle chip never repaints: the aura and sweep only move with the animation on. On a three-screen bar, off measured about 13% of a core for the whole shell against about 22% with the animation on, the same as removing the widget.
+
 ## 1.9.1 — 2026-09-18
 
 - **Clicks all time, on the Overview.** A fifth card beside Distance, Taps, Peak and Active carries the lifetime click count with its per-day average and the date recording started. It counts left and right buttons, it comes from the `days` table, which nothing prunes, and it never resets: the seven-day retention only ever touched minutes, pad minutes and sessions. The bar tooltip carries the same line, and the About page's Retention card now says "7 days · forever" rather than implying the daily totals go too.
